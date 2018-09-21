@@ -100,10 +100,10 @@ public class ArticleListActivity extends AppCompatActivity
           new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              startActivity(
-                  new Intent(
-                      Intent.ACTION_VIEW,
-                      ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+              Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity.class);
+              intent.putExtra(
+                  "itemId", ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
+              startActivity(intent);
             }
           });
       return vh;
