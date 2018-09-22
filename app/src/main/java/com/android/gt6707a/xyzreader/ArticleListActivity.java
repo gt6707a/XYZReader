@@ -1,10 +1,11 @@
 package com.android.gt6707a.xyzreader;
 
-import android.app.LoaderManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,7 +47,7 @@ public class ArticleListActivity extends AppCompatActivity
 
     ButterKnife.bind(this);
 
-    getLoaderManager().initLoader(0, null, this);
+    getSupportLoaderManager().initLoader(0, null, this);
 
     if (savedInstanceState == null) {
       refresh();
@@ -58,12 +59,12 @@ public class ArticleListActivity extends AppCompatActivity
   }
 
   @Override
-  public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
     return ArticleLoader.newAllArticlesInstance(this);
   }
 
   @Override
-  public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor cursor) {
+  public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
     Adapter adapter = new Adapter(cursor);
     adapter.setHasStableIds(true);
     articlesRecyclerView.setAdapter(adapter);
@@ -75,7 +76,7 @@ public class ArticleListActivity extends AppCompatActivity
   }
 
   @Override
-  public void onLoaderReset(android.content.Loader<Cursor> loader) {
+  public void onLoaderReset(Loader<Cursor> loader) {
     articlesRecyclerView.setAdapter(null);
   }
 
